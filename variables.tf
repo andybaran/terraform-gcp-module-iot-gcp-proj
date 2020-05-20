@@ -2,20 +2,12 @@ variable "folder_id" {
     description = "GCP Organization ID"
 }
 
-variable "project_name" {
-    description = "Google Project Name Descriptor (not project ID)"
-}
-
 variable "region" {
     description = "GCP Region"
 }
 
 variable "creds" {
   description = "GCP account file contents"
-}
-
-variable "main_service_account" {
-    description = "Service account used to stand run TF"
 }
 
 variable "zone" {
