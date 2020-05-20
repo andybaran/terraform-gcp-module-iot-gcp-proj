@@ -17,8 +17,9 @@ resource "random_string" "prefix" {
   special = false
 }
 
-module "fabric-project" {
-  source          = "../../modules/fabric-project"
+module "project-factory_example_fabric_project" {
+  source          = "terraform-google-modules/project-factory/google//examples/fabric_project"
+  version = "8.0.1"
   activate_apis   = var.activate_apis
   billing_account = var.billing_account
   name            = var.name
