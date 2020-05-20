@@ -2,6 +2,11 @@ terraform {
     required_version = ">= 0.12.0"
 }
 
+provider "google" {
+  version = "~> 3.22.0"
+  credentials = var.creds
+}
+
 module "project-factory_example_fabric_project" {
   source          = "terraform-google-modules/project-factory/google//examples/fabric_project"
   version = "8.0.1"
@@ -11,6 +16,8 @@ module "project-factory_example_fabric_project" {
   owners          = var.owners
   parent          = var.parent
   prefix          = local.prefix
+  oslogin = true
+
 }
 
 locals {
