@@ -3,7 +3,6 @@ terraform {
 }
 
 provider "google" {
-  version = "~> 3.22.0"
   credentials = var.creds
 }
 
