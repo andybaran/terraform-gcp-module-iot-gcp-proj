@@ -29,11 +29,11 @@ variable "name" {
   type        = string
 }
 
-/*variable "billing_account" {
+variable "billing_account" {
   description = "Billing account id."
   type        = string
   default     = ""
-}*/
+}
 
 variable "activate_apis" {
   description = "Service APIs to enable."
