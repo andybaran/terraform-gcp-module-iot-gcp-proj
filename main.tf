@@ -19,8 +19,8 @@ module "project-factory_example_fabric_project" {
 }
 
 module "project-iam-bindings" {
-  source          = "terraform-google-modules/project-factory/google//modules/projects_iam"
-  projects = ["module.project-factory_example_fabric_project.project_id"]
+  source          = "terraform-google-modules/iam/google//modules/projects_iam"
+  project = module.project-factory_example_fabric_project.project_id
 
   bindings = {
     "roles/owner" = [
