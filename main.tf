@@ -14,12 +14,8 @@ module "project-factory_example_fabric_project" {
   name            = var.name
   owners          = var.owners
   parent          = var.parent
-  prefix          = local.prefix
+  prefix          = var.prefix
   oslogin         = true
-}
-
-locals {
-  prefix = var.prefix == "" ? random_string.prefix.result : var.prefix
 }
 
 resource "random_string" "prefix" {
