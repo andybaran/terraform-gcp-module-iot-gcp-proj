@@ -30,12 +30,12 @@ resource "random_string" "prefix" {
 // ************************************************************  
 
 resource "google_cloudiot_registry" "iot_registry" { 
-    depends_on = [google_pubsub_topic.pst_diagnostic_data, google_project_service.service]
+    depends_on = [google_pubsub_topic.pst_diagnostic_data]
     
     name = "obd2_devices"
-    project =  var.gcloud-project
+    project = module.project-factory_example_fabric_project.project_id
     event_notification_configs {
-        pubsub_topic_name = "projects/${var.gcloud-project}/topics/diagnostic_data"
+        pubsub_topic_name = "projects/${module.project-factory_example_fabric_project.project_id}/topics/diagnostic_data"
     }
     mqtt_config = {
         mqtt_enabled_state = "MQTT_ENABLED"
@@ -50,15 +50,14 @@ resource "google_cloudiot_registry" "iot_registry" {
 // ************************************************************  
 
 resource "google_pubsub_topic" "pst_diagnostic_data" {
-    depends_on = [google_project_service.service]
     name = "diagnostic_data"
-    project = var.gcloud-project
+    project = module.project-factory_example_fabric_project.project_id
 }
 
 resource "google_pubsub_subscription" "pst_diagnostic_data_sub" {
     depends_on = [google_pubsub_topic.pst_diagnostic_data]
     name = var.pub_sub_sub
-    project = var.gcloud-project
+    project = module.project-factory_example_fabric_project.project_id
     topic = google_pubsub_topic.pst_diagnostic_data.name
     
     message_retention_duration = "86400s"
@@ -75,26 +74,24 @@ resource "google_bigquery_dataset" "obd2info" {
     description = "Dataset containing tables related to OBD2 diagnostic logs"
     location = "US"
 
-    depends_on = [google_project_service.service]
-
    /* access {
-        role = "projects/${var.gcloud-project}/roles/bigquery.admin"
+        role = "projects/${module.project-factory_example_fabric_project.project_id}/roles/bigquery.admin"
         special_group = "projectOwners"
     }
     access {
-        role = "projects/${var.gcloud-project}/roles/bigquery.dataEditor"
+        role = "projects/${module.project-factory_example_fabric_project.project_id}/roles/bigquery.dataEditor"
         special_group = "projectWriters"
     }
     access {
-        role = "projects/${var.gcloud-project}/roles/bigquery.dataViewer"
+        role = "projects/${module.project-factory_example_fabric_project.project_id}/roles/bigquery.dataViewer"
         special_group = "projectReaders"
     }
     access {
-        role = "projects/${var.gcloud-project}/roles/bigquery.jobUser"
+        role = "projects/${module.project-factory_example_fabric_project.project_id}/roles/bigquery.jobUser"
         special_group = "projectWriters"
     }
     access {
-        role = "projects/${var.gcloud-project}/bigquery.jobUser"
+        role = "projects/${module.project-factory_example_fabric_project.project_id}/bigquery.jobUser"
         special_group = "projectReaders"
     }*/
 }
@@ -197,7 +194,7 @@ resource "google_bigquery_table" "obd2logging" {
 // ************************************************************   
 
 resource "google_storage_bucket" "dataflow_bucket" {
-  name = join("",["dataflow-", var.gcloud-project])
+  name = join("",["dataflow-", module.project-factory_example_fabric_project.project_id])
   location = "US"
 }
 
@@ -207,8 +204,8 @@ resource "google_dataflow_job" "collect_OBD2_data" {
   template_gcs_path = "gs://dataflow-templates/latest/PubSub_Subscription_to_BigQuery"
   temp_gcs_location = "${google_storage_bucket.dataflow_bucket.url}/tmp_dir"
   parameters = {
-    inputSubscription = "projects/${var.gcloud-project}/subscriptions/${var.pub_sub_sub}"
-    outputTableSpec = "${var.gcloud-project}:${var.bq_table}"
+    inputSubscription = "projects/${module.project-factory_example_fabric_project.project_id}/subscriptions/${var.pub_sub_sub}"
+    outputTableSpec = "${module.project-factory_example_fabric_project.project_id}:${var.bq_table}"
     #flexRSGoal = "COST_OPTIMIZED"
   }
 }
