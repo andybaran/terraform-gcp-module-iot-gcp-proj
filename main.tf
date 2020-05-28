@@ -69,6 +69,7 @@ resource "google_pubsub_subscription" "pst_diagnostic_data_sub" {
 // ************************************************************   
 
 resource "google_bigquery_dataset" "obd2info" {
+    project = module.project-factory_example_fabric_project.project_id
     dataset_id = var.bq_dataset
     friendly_name = var.bq_dataset
     description = "Dataset containing tables related to OBD2 diagnostic logs"
@@ -194,11 +195,13 @@ resource "google_bigquery_table" "obd2logging" {
 // ************************************************************   
 
 resource "google_storage_bucket" "dataflow_bucket" {
+  project = module.project-factory_example_fabric_project.project_id
   name = join("",["dataflow-", module.project-factory_example_fabric_project.project_id])
   location = "US"
 }
 
 resource "google_dataflow_job" "collect_OBD2_data" {
+  project = module.project-factory_example_fabric_project.project_id
   name              = "OBD2-Data-Collection"
   zone = var.zone
   template_gcs_path = "gs://dataflow-templates/latest/PubSub_Subscription_to_BigQuery"
