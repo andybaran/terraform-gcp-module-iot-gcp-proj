@@ -98,6 +98,7 @@ resource "google_bigquery_dataset" "obd2info" {
 }
 
 resource "google_bigquery_table" "obd2logging" {
+    project = module.project-factory_example_fabric_project.project_id
     dataset_id = google_bigquery_dataset.obd2info.dataset_id
     table_id = var.bq_table
 
@@ -188,7 +189,6 @@ resource "google_bigquery_table" "obd2logging" {
 
 
 }
-
 
 // ************************************************************   
 // Dataflow Job (PubSub --> BigQuery Table)
