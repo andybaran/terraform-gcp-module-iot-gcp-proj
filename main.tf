@@ -18,6 +18,18 @@ module "project-factory_example_fabric_project" {
   oslogin         = true
 }
 
+module "project-iam-bindings" {
+  source          = "terraform-google-modules/project-factory/google//modules/projects_iam"
+  projects = ["module.project-factory_example_fabric_project.project_id"]
+
+  bindings = {
+    "roles/owner" = [
+      "user:andy.baran@hashicorp.com",
+    ]
+  }
+}
+
+
 resource "random_string" "prefix" {
   length  = 30 - length(var.name) - 1
   upper   = false
