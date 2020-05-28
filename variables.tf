@@ -121,3 +121,19 @@ variable "labels" {
   type        = map(string)
   default     = {}
 }
+
+variable "pub_sub_sub" {
+  description = "Pub/Sub Subscription"
+  type = string
+  
+}
+
+variable "bq_dataset" {
+  description = "BigQuery Dataset"
+  type = string
+}
+
+variable "bq_table" {
+  description = "BigQuery Table"
+  type = string
+}
