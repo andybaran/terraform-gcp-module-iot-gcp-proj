@@ -42,5 +42,5 @@ variable "org_id" {
 variable "requested_services" {
   description = "Additional APIs to enable for your project"
   type = list(string)
-  default = [""]
+  default = ["nothing"]
 }
