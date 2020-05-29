@@ -19,8 +19,8 @@ variable "folder_id" {
   type        = string
 }
 
-variable "name" {
-  description = "Project name and id suffix."
+variable "project_name" {
+  description = "Project name."
   type        = string
 }
 
