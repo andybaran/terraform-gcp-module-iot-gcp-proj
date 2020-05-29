@@ -35,6 +35,8 @@ variable "billing_account" {
 variable "activate_apis" {
   description = "Service APIs to enable."
   type        = list(string)
+}
+
 variable "org_id" {
   description = "GCP Organization id."
   type        = string 
