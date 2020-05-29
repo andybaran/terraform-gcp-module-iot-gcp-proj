@@ -42,7 +42,7 @@ resource "google_project_service" "common_services" {
     service = each.key
     project =  data.google_project.project.project_id
     disable_dependent_services = true
-}
+  }
 
 resource "google_project_service" "requested_services" {
     for_each = toset([var.requested_services])

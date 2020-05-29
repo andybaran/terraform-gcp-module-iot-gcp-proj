@@ -15,8 +15,8 @@ variable "zone" {
 }
 
 variable "folder_id" {
-  description = "The resource name of the parent Folder . Must be of the form google_folder.folder_id"
-  type        = string
+  description = "Must be of the form google_folder.folder_id"
+  type = string
 }
 
 variable "project_name" {
@@ -42,5 +42,4 @@ variable "org_id" {
 variable requested_services {
   description = "Additional APIs to enable for your project"
   type = list(string)
-  default = [""]
 }
