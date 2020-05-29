@@ -1,5 +1,6 @@
 variable "folder_id" {
     description = "GCP Organization ID"
+    type = string
 }
 
 variable "region" {
@@ -14,9 +15,10 @@ variable "zone" {
     description = "GCP Zone"
 }
 
-variable "folder_id" {
+variable "my_folder_id" {
+  type        = string
   description = "Must be of the form google_folder.folder_id"
-  type = string
+
 }
 
 variable "project_name" {
@@ -35,7 +37,7 @@ variable "activate_apis" {
   type        = list(string)
 variable "org_id" {
   description = "GCP Organization id."
-  type = string 
+  type        = string 
   default = ""
 }
 
