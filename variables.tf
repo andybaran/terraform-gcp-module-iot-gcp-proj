@@ -32,11 +32,6 @@ variable "billing_account" {
   type        = string
 }
 
-variable "activate_apis" {
-  description = "Service APIs to enable."
-  type        = list(string)
-}
-
 variable "requested_services" {
   description = "Additional APIs to enable for your project"
   type = list(string)
