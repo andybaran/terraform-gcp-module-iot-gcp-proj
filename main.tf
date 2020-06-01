@@ -40,7 +40,7 @@ resource "google_project_service" "common_services" {
     ])
     
     service = each.key
-    project =  data.google_project.project.project_id
+    project =  google_project.project.project_id
     disable_dependent_services = true
   }
 
@@ -48,7 +48,7 @@ resource "google_project_service" "requested_services" {
     for_each = toset(var.requested_services)
     
     service = each.key
-    project =  data.google_project.project.project_id
+    project =  google_project.project.project_id
     disable_dependent_services = true
 }
 
@@ -59,14 +59,14 @@ resource "google_compute_network" "provisioning-vpc" {
   depends_on = [google_project_service.common_services]
   
   name = "provisioning-vpc"
-  project = data.google_project.project.project_id
+  project = google_project.project.project_id
   auto_create_subnetworks = false
 }
 
 resource "google_compute_subnetwork" "provisioning-subnet" {
   name          = join(google_project.project,"-primary-subnet")
   ip_cidr_range = "10.10.0.0/16"
-  project       = data.google_project.project.project_id
+  project       = google_project.project.project_id
   region        = var.region
   network       = google_compute_network.provisioning-vpc.self_link
   secondary_ip_range {
