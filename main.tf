@@ -86,7 +86,7 @@ resource "google_project_iam_binding" "proj_owners" {
     role = "roles/owner"
 
     members = [
-      "user: andy.baran@hashicorp.com",
-      "user: google_service_account.admin_service_account.account_id"
+      "user:andy.baran@hashicorp.com",
+      "serviceAccount:google_service_account.admin_service_account.email"
     ]
 }
