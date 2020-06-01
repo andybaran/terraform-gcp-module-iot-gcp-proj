@@ -64,13 +64,13 @@ resource "google_compute_network" "provisioning-vpc" {
 }
 
 resource "google_compute_subnetwork" "provisioning-subnet" {
-  name          = join(google_project.project.name,"-primary-subnet")
+  name          = join("",[google_project.project.name,"-primary-subnet"])
   ip_cidr_range = "10.10.0.0/16"
   project       = google_project.project.project_id
   region        = var.region
   network       = google_compute_network.provisioning-vpc.self_link
   secondary_ip_range {
-    range_name    = join(google_project.project.name,"-secondary-range")
+    range_name    = join("",[google_project.project.name,"-secondary-range"])
     ip_cidr_range = "192.168.10.0/24"
   }
 }
