@@ -82,7 +82,7 @@ resource "google_service_account" "admin_service_account" {
 }
 
 resource "google_project_iam_binding" "proj_owners" {
-    project = "google_project.project.project_id"
+    project = google_project.project.project_id
     role = "roles/owner"
 
     members = [
