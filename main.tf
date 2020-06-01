@@ -21,7 +21,6 @@ resource "random_id" "id" {
 resource "google_project" "project" {
     name = var.project_name
     project_id = random_id.id.hex
-    org_id = var.org_id
     folder_id = var.folder_id
     billing_account = var.billing_account
     auto_create_network = false
