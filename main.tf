@@ -1,17 +1,17 @@
 
-/*terraform {
+terraform {
     required_version = ">= 0.12.0"
     required_providers {
         google = "3.5.0"
         random = "~> 2.2"
-  }
+    }
 }
 
 provider "google" {
     region = var.region
     credentials = creds
     project = "andybaran-seedproject"
-}*/
+}
 
 resource "random_id" "id" {
     byte_length = 4

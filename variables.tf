@@ -1,3 +1,10 @@
+
+variable "org_id" {
+  description = "GCP Organization id."
+  type        = string 
+}
+
+
 variable "folder_id" {
     description = "GCP Organization ID"
     type = string
@@ -15,12 +22,6 @@ variable "zone" {
     description = "GCP Zone"
 }
 
-variable "my_folder_id" {
-  type        = string
-  description = "Must be of the form google_folder.folder_id"
-
-}
-
 variable "project_name" {
   description = "Project name."
   type        = string
@@ -29,7 +30,6 @@ variable "project_name" {
 variable "billing_account" {
   description = "Billing account id."
   type        = string
-  default     = ""
 }
 
 variable "activate_apis" {
@@ -37,14 +37,7 @@ variable "activate_apis" {
   type        = list(string)
 }
 
-variable "org_id" {
-  description = "GCP Organization id."
-  type        = string 
-  default = ""
-}
-
 variable "requested_services" {
   description = "Additional APIs to enable for your project"
   type = list(string)
-  default = ["nothing"]
 }
