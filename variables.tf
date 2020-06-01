@@ -1,10 +1,3 @@
-
-variable "org_id" {
-  description = "GCP Organization id."
-  type        = string 
-}
-
-
 variable "folder_id" {
     description = "GCP Organization ID"
     type = string

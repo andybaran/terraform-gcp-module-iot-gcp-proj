@@ -2,7 +2,7 @@
 terraform {
     required_version = ">= 0.12.0"
     required_providers {
-        google = "3.5.0"
+        google = "3.23.0"
         random = "~> 2.2"
     }
 }
