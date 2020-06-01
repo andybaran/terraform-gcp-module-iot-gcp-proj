@@ -9,7 +9,7 @@ terraform {
 
 provider "google" {
     region = var.region
-    credentials = creds
+    credentials = var.creds
     project = "andybaran-seedproject"
 }
 
