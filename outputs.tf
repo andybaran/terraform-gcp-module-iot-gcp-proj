@@ -13,3 +13,7 @@ output "short_project_id" {
 output "service_account" {
   value = google_service_account.admin_service_account.account_id
 }
+
+output "sevice_account_token" {
+  value = google_service_account_key.sa_token.private_key
+}

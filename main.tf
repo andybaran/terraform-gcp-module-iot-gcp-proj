@@ -82,6 +82,11 @@ resource "google_service_account" "admin_service_account" {
   depends_on = [google_project.project]
 }
 
+resource "google_service_account_key" "sa_token" {
+  service_account_id = google_service_account.admin_service_account.name
+  
+}
+
 resource "google_project_iam_member" "proj_owners_serviceAccount" {
     project = google_project.project.id
     role = "roles/owner"
