@@ -82,11 +82,11 @@ resource "google_service_account" "admin_service_account" {
 }
 
 resource "google_project_iam_binding" "proj_owners" {
-    project = google_project.project.project_id
+    project = google_project.project.id
     role = "roles/owner"
 
     members = [
       "user:andy.baran@hashicorp.com",
-      "serviceAccount:google_service_account.admin_service_account.email"
+      "serviceAccount:google_service_account.admin_service_account.email",
     ]
 }
