@@ -43,6 +43,7 @@ resource "google_project_service" "common_services" {
     disable_dependent_services = true
   }
 
+
 resource "google_project_service" "requested_services" {
     for_each = toset(var.requested_services)
     
@@ -59,7 +60,7 @@ resource "google_compute_network" "provisioning-vpc" {
   
   name = "provisioning-vpc"
   project = google_project.project.project_id
-  auto_create_subnetworks = false
+  auto_create_subnetworks = true
 }
 
 resource "google_compute_subnetwork" "provisioning-subnet" {
