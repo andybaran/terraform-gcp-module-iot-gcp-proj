@@ -84,11 +84,11 @@ resource "google_service_account" "admin_service_account" {
 resource "google_project_iam_member" "proj_owners_serviceAccount" {
     project = google_project.project.id
     role = "roles/owner"
-    members = "serviceAccount:google_service_account.admin_service_account.email"
+    member = "serviceAccount:google_service_account.admin_service_account.email"
 }
 
 resource "google_project_iam_member" "proj_owners_adminUser" {
     project = google_project.project.id
     role = "roles/owner"
-    members = "user:andy.baran@hashicorp.com"
+    member = "user:andy.baran@hashicorp.com"
 }
