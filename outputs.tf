@@ -7,7 +7,7 @@ output "project_id" {
 }
 
 output "short_project_id" {
-  value = value = google_project.project.short_project_id
+  value = google_project.project.short_project_id
 }
 
 output "service_account" {
