@@ -22,7 +22,7 @@ resource "google_project" "project" {
     project_id = random_id.id.hex
     folder_id = var.folder_id
     billing_account = var.billing_account
-    auto_create_network = false
+    auto_create_network = true
     
 }
 
