@@ -24,9 +24,6 @@ resource "google_project" "project" {
     billing_account = var.billing_account
     auto_create_network = false
     
-    lifecycle {
-            prevent_destroy = true
-    }
 }
 
 resource "google_project_service" "common_services" {
