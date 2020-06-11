@@ -73,7 +73,7 @@ resource "google_compute_subnetwork" "provisioning-subnet" {
 }
 
 resource "google_service_account" "admin_service_account" {
-  account_id   = "admin-gcpkms"
+  account_id   = "admin-service-account"
   display_name = "Admin service account for GCP"
   project =  google_project.project.project_id
   depends_on = [google_project.project]

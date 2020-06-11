@@ -1,2 +1,5 @@
 .vscode/arduino.json
 .vscode/c_cpp_properties.json
+.terraform/plugins/darwin_amd64/lock.json
+.terraform/plugins/darwin_amd64/terraform-provider-google_v3.24.0_x5
+.terraform/plugins/darwin_amd64/terraform-provider-random_v2.2.1_x4
