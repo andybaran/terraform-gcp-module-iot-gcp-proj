@@ -17,3 +17,11 @@ output "service_account" {
 output "service_account_token" {
   value = google_service_account_key.sa_token.private_key
 }
+
+output "service_account" {
+  value = google_service_account.admin_service_account.account_id
+}
+
+output "service_account_email" {
+  value = google_service_account.admin_service_account.email
+}
