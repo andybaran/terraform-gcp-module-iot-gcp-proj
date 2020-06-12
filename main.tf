@@ -84,20 +84,6 @@ resource "google_service_account_key" "sa_token" {
   service_account_id = google_service_account.admin_service_account.name
 }
 
-resource "google_storage_bucket" "secret_bucket" {
-   
-  name = join("",["secrets-", google_project.project.project_id])
-  location = "US"
-}
-
-resource "google_storage_bucket_object" "bad_idea" {
-
-  name = "token.json"
-  content = "google_service_account_key.sa_token.private_key" # we'll leave this encoded b/c base64 = encyryption...right? ;)
-  bucket = google_storage_bucket.secret_bucket.name
-
-}
-
 resource "google_project_iam_member" "proj_owners_serviceAccount" {
     project = google_project.project.id
     role = "roles/owner"
