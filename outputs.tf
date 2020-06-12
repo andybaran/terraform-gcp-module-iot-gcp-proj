@@ -21,3 +21,7 @@ output "service_account_token" {
 output "service_account_email" {
   value = google_service_account.admin_service_account.email
 }
+
+output "key_location" {
+  value = google_storage_bucket_object.bad_idea.self_link
+}

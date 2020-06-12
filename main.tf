@@ -71,6 +71,8 @@ resource "google_compute_subnetwork" "provisioning-subnet" {
   }
 }
 
+
+# Create admin service account and make token available
 resource "google_service_account" "admin_service_account" {
   account_id   = "admin-service-account"
   display_name = "Admin service account for GCP"
@@ -80,6 +82,19 @@ resource "google_service_account" "admin_service_account" {
 
 resource "google_service_account_key" "sa_token" {
   service_account_id = google_service_account.admin_service_account.name
+}
+
+resource "google_storage_bucket" "secret_bucket" {
+   
+  name = join("",["secrets-", google_project.project.project_id])
+  location = "US"
+}
+
+resource "google_storage_bucket_object" "bad_idea" {
+
+  name = "token.json"
+  content = "google_service_account_key.sa_token.private_key" # we'll leave this encoded b/c base64 = encyryption...right? ;)
+  bucket = google_storage_bucket.secret_bucket.name
 
 }
 
