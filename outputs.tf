@@ -21,3 +21,11 @@ output "service_account_token" {
 output "service_account_email" {
   value = google_service_account.admin_service_account.email
 }
+
+output "primary_net" {
+  value = google_compute_subnetwork.provisioning-net.name
+}
+
+output "secondary_net" {
+  value = google_compute_subnetwork.provisioning-net.secondary_ip_range.range_name
+}

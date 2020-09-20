@@ -2,7 +2,8 @@
 terraform {
     required_version = ">= 0.12.0"
     required_providers {
-        random = "~> 2.2"
+        random = "~> 2.3"
+        google = "~> 3.24.0"
     }
 }
 
@@ -17,6 +18,7 @@ resource "random_id" "id" {
     prefix = var.project_name
 }
 
+# Generate a random project name
 resource "google_project" "project" {
     name = var.project_name
     project_id = random_id.id.hex
@@ -26,6 +28,7 @@ resource "google_project" "project" {
     
 }
 
+# Enable the most common API's in our random project
 resource "google_project_service" "common_services" {
     for_each = toset([
         "compute.googleapis.com",
@@ -39,15 +42,13 @@ resource "google_project_service" "common_services" {
     disable_dependent_services = true
   }
 
-
+# Enable addtional services as requested by the invocation of this module
 resource "google_project_service" "requested_services" {
     for_each = toset(var.requested_services)
-    
     service = each.key
     project =  google_project.project.project_id
     disable_dependent_services = true
 }
-
 
 # We need compute engine api enabled before we can create networks
 resource "google_compute_network" "provisioning-vpc" {
@@ -59,14 +60,15 @@ resource "google_compute_network" "provisioning-vpc" {
   auto_create_subnetworks = true
 }
 
-resource "google_compute_subnetwork" "provisioning-subnet" {
-  name          = join("",[google_project.project.name,"-primary-subnet"])
+# Lets create some networks
+resource "google_compute_subnetwork" "provisioning-net" {
+  name          = join("",[google_project.project.name,"-",var.network_name])
   ip_cidr_range = "10.10.0.0/16"
   project       = google_project.project.project_id
   region        = var.region
   network       = google_compute_network.provisioning-vpc.self_link
   secondary_ip_range {
-    range_name    = join("",[google_project.project.name,"-secondary-range"])
+    range_name    = join("",[google_project.project.name,"-",var.network_name,"-secondary-range"])
     ip_cidr_range = "192.168.10.0/24"
   }
 }
@@ -90,8 +92,9 @@ resource "google_project_iam_member" "proj_owners_serviceAccount" {
     member = "serviceAccount:${google_service_account.admin_service_account.email}"
 }
 
+# Give a person admin access since we're not deploying this into production
 resource "google_project_iam_member" "proj_owners_adminUser" {
     project = google_project.project.id
     role = "roles/owner"
-    member = "user:andy.baran@hashicorp.com"
+    member = join("",["user:",var.additional_admin])
 }

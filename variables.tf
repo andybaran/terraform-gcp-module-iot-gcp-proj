@@ -29,3 +29,13 @@ variable "requested_services" {
   description = "Additional APIs to enable for your project"
   type = list(string)
 }
+
+variable "additional_admin" {
+  description = "Additional admin to be given access to this project. Typically an actual person."
+  type = string
+}
+
+variable "network_name" {
+  description = "A name for your network"
+  type = string
+}
